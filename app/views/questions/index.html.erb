@@ -4,7 +4,7 @@
       <li>
         <span class="answer-length"><%= question.answers.length %> answers </span>
         <%= link_to question.title, question_path(question) %>
-        <%= time_ago_in_words question.created_at %> <br>
+        asked <%= time_ago_in_words question.created_at %> ago<br>
 
         <ul class="list-inline">
           <% question.tags.each do |tag| %>
@@ -19,7 +19,7 @@
                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
               <% end %>
             <% end %>
-            
+
           <% end %>
         </ul>
       </li>
