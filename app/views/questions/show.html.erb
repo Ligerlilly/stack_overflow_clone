@@ -24,7 +24,7 @@
   <%= render 'answers/form' %>
 <% end %>
 
-<ul>
+<ul class='question-answers'>
   <% @question.answers.each do |answer| %>
     <li>
       <%= answer.response %>

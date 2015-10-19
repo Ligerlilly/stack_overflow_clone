@@ -5,7 +5,7 @@ describe 'questions' do
     login_as(user, :scope => :user)
   end
 
-  it 'questions can be created' do
+  it 'can be created' do
     visit '/'
     click_link 'New Question'
     fill_in 'Title', with: 'hi'
@@ -14,16 +14,16 @@ describe 'questions' do
     expect(page).to have_content 'hi'
   end
 
-  it 'questions can be edited' do
+  it 'can be edited' do
     visit '/questions/3'
-  
+
     click_link 'Edit'
     fill_in 'Title', with: 'hello'
     click_button 'Update Question'
     expect(page).to have_content 'hello'
   end
 
-  it 'questions can be deleted' do
+  it 'can be deleted' do
     visit '/questions/3'
     click_link 'Delete'
     expect(page).to_not have_content 'Adventure'

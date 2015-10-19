@@ -8,4 +8,9 @@ FactoryGirl.define do
     title 'Adventure'
     content 'Time'
   end
+
+  factory :answer do
+    response 'yolo'
+  end
+
 end
