@@ -27,12 +27,17 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    @question = @question.update(question_params)
-    if @question.save
+
+    if  @question.update(question_params)
       redirect_to questions_path, notice: "Question updated!"
     else
       render :new
     end
+  end
+
+  def destroy
+    @question.destroy
+    redirect_to questions_path
   end
 
   private
