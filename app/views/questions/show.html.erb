@@ -1,7 +1,15 @@
-<h1><%= @question.title %></h1>
+<h1>
+  <span class="vote">
+    <span id='<%= @question.id %>' class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+    <span id='down' class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+  </span>
+  <%= @question.title %>
+</h1>
 
-<%= link_to 'Edit', edit_question_path(@question) %>
-<%= link_to 'Delete', question_path(@question), data: { confirm: "You sure?", method: 'delete'}%>
+<% if current_user %>
+  <%= link_to 'Edit', edit_question_path(@question) %>
+  <%= link_to 'Delete', question_path(@question), data: { confirm: "You sure?", method: 'delete'}%>
+<% end %>
 
 <p>
   <%= @question.content %>
@@ -12,15 +20,18 @@
   </ul>
 </p>
 
-<%= render 'answers/form' %>
-
+<% if current_user %>
+  <%= render 'answers/form' %>
+<% end %>
 
 <ul>
   <% @question.answers.each do |answer| %>
     <li>
       <%= answer.response %>
-      <%= link_to 'Edit', edit_question_answer_path(@question, answer) %> |
-      <%= link_to "Delete", question_answer_path(@question, answer), data: { confirm: "You sure?", method: 'delete'} %>
+      <% if current_user %>
+        <%= link_to 'Edit', edit_question_answer_path(@question, answer) %> |
+        <%= link_to "Delete", question_answer_path(@question, answer), data: { confirm: "You sure?", method: 'delete'} %>
+      <% end %>
     </li>
   <% end %>
 </ul>

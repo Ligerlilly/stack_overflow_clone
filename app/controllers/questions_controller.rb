@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :find_question, except: [:new, :create, :index]
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
     @questions = Question.all
@@ -27,7 +28,6 @@ class QuestionsController < ApplicationController
   end
 
   def update
-
     if  @question.update(question_params)
       redirect_to questions_path, notice: "Question updated!"
     else
@@ -47,6 +47,6 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :content, tag_ids: [])
+    params.require(:question).permit(:title, :content, :user_id, tag_ids: [])
   end
 end

@@ -1,6 +1,10 @@
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 
+body {
+  margin-top: 60px;
+}
+
 .listed-questions ul {
   list-style-type: none;
   padding-left: 0;
@@ -9,4 +13,12 @@
 .listed-questions li {
   border-bottom: 2px solid black;
   padding: 6px;
+
+    .index-tags {
+      border-bottom: none;
+    }
+}
+
+.glyphicon-chevron-up:hover, .glyphicon-chevron-down:hover {
+  cursor: pointer;
 }

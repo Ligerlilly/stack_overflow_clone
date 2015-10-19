@@ -1,5 +1,6 @@
 <%= form_for @answer do |f| %>
   <div class='form-group'>
+    <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.label :response %>
     <%= f.text_field :response, class: "form-control", required: 'required' %>
     <% if params[:controller] == 'questions' && params[:action] == 'show' %>
