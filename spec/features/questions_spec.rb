@@ -1,6 +1,7 @@
 describe 'questions' do
   before do
-    user = FactoryGirl.create(:user)
+    user = FactoryGirl.create(:user, id: 1)
+    question = FactoryGirl.create(:question, id: 3, user_id: 1)
     login_as(user, :scope => :user)
   end
 
@@ -14,27 +15,18 @@ describe 'questions' do
   end
 
   it 'questions can be edited' do
-    visit '/'
-    click_link 'New Question'
-    fill_in 'Title', with: 'hi'
-    fill_in 'Content', with: 'there'
-    click_button 'Create Question'
-    click_link 'hi'
+    visit '/questions/3'
+  
     click_link 'Edit'
     fill_in 'Title', with: 'hello'
     click_button 'Update Question'
     expect(page).to have_content 'hello'
   end
 
-  it 'questions can be edited' do
-    visit '/'
-    click_link 'New Question'
-    fill_in 'Title', with: 'hi'
-    fill_in 'Content', with: 'there'
-    click_button 'Create Question'
-    click_link 'hi'
+  it 'questions can be deleted' do
+    visit '/questions/3'
     click_link 'Delete'
-    expect(page).to_not have_content 'hi'
+    expect(page).to_not have_content 'Adventure'
   end
 
 end
