@@ -6,7 +6,7 @@
   <%= @question.title %>
 </h1>
 
-<% if current_user %>
+<% if current_user && (current_user.id == @question.user_id || current_user.admin?) %>
   <%= link_to 'Edit', edit_question_path(@question) %>
   <%= link_to 'Delete', question_path(@question), data: { confirm: "You sure?", method: 'delete'}%>
 <% end %>
@@ -28,7 +28,7 @@
   <% @question.answers.each do |answer| %>
     <li>
       <%= answer.response %>
-      <% if current_user %>
+      <% if current_user && (current_user.id == @question.user_id || current_user.admin?) %>
         <%= link_to 'Edit', edit_question_answer_path(@question, answer) %> |
         <%= link_to "Delete", question_answer_path(@question, answer), data: { confirm: "You sure?", method: 'delete'} %>
       <% end %>
