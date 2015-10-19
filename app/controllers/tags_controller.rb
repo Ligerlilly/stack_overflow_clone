@@ -13,12 +13,12 @@ class TagsController < ApplicationController
     if @tag.save
       redirect_to new_question_path
     else
-      render :new
+    
     end
   end
 
   def edit
-  
+
   end
 
 private
