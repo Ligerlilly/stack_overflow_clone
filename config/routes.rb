@@ -4,12 +4,13 @@ Rails.application.routes.draw do
 
   resources :questions do
     resources :answers
+    resources :votes
   end
   resources :answers
   namespace :admin do
     resources :users
   end
-  
+
 
   resources :tags
 

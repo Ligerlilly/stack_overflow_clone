@@ -1,11 +1,10 @@
 <h1>
   <span class="vote">
-    <span id='<%= @question.id %>' class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+  <%= link_to 'up', {action: :create, controller: :votes, question_id: @question}, method: :post%>
     <span id='down' class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
   </span>
   <%= @question.title %>
 </h1>
-
 <% if current_user && (current_user.id == @question.user_id || current_user.admin?) %>
   <%= link_to 'Edit', edit_question_path(@question) %>
   <%= link_to 'Delete', question_path(@question), data: { confirm: "You sure?", method: 'delete'}%>
