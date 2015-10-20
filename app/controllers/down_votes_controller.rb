@@ -6,14 +6,21 @@ class DownVotesController < ApplicationController
   end
 
   def create
-    @down_vote = @downable.down_votes.new
-    @down_vote.user_id = current_user.id
+
+    if params[:answer_id]
+      @downable = Answer.find(params[:answer_id])
+      @down_vote = @downable.down_votes.new
+    else
+      @down_vote = @downable.down_votes.new
+    end
+      @down_vote.user_id = current_user.id
+
     begin
       if @down_vote.save
-        redirect_to questions_path
+        redirect_to question_path(@id)
       end
     rescue ActiveRecord::RecordNotUnique
-      redirect_to questions_path
+      redirect_to question_path(@id)
       flash[:alert] = "You have already voted!"
     end
   end
@@ -30,7 +37,7 @@ class DownVotesController < ApplicationController
 
   private
   def load_votable
-    resource, id = request.path.split('/')[1,2]
-    @downable = resource.singularize.classify.constantize.find(id)
+    resource, @id = request.path.split('/')[1,2]
+    @downable = resource.singularize.classify.constantize.find(@id)
   end
 end

@@ -6,14 +6,19 @@ class VotesController < ApplicationController
   end
 
   def create
-    @vote = @votable.votes.new
+    if params[:answer_id]
+      @votable = Answer.find(params[:answer_id])
+      @vote = @votable.votes.new
+    else
+      @vote = @votable.votes.new
+    end
     @vote.user_id = current_user.id
     begin
       if @vote.save
-        redirect_to questions_path
+        redirect_to question_path(@id)
       end
     rescue ActiveRecord::RecordNotUnique
-      redirect_to questions_path
+      redirect_to question_path(@id)
       flash[:alert] = "You have already voted!"
     end
   end
@@ -30,7 +35,7 @@ class VotesController < ApplicationController
 
   private
   def load_votable
-    resource, id = request.path.split('/')[1,2]
-    @votable = resource.singularize.classify.constantize.find(id)
+    resource, @id = request.path.split('/')[1,2]
+    @votable = resource.singularize.classify.constantize.find(@id)
   end
 end

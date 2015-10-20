@@ -7,6 +7,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    #@total_votes = @question.answers.votes - @answer.downvotes
     @answer = Answer.new
   end
 
@@ -28,10 +29,17 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if  @question.update(question_params)
-      redirect_to questions_path, notice: "Question updated!"
+
+    if params[:best_answer]
+      @question.best_answer = params[:best_answer]
+      @question.save
+      redirect_to question_path(@question)
     else
-      render :new
+      if  @question.update(question_params)
+        redirect_to questions_path, notice: "Question updated!"
+      else
+        render :new
+      end
     end
   end
 
@@ -47,6 +55,6 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :content, :user_id, tag_ids: [])
+    params.require(:question).permit(:title, :content, :user_id, :best_answer, tag_ids: [])
   end
 end

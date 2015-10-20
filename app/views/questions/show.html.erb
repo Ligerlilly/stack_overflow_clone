@@ -1,14 +1,10 @@
 <h1>
-  <span class="vote">
-
+    <%= @question.votes.length - @question.down_votes.length %>
     <%= link_to (fa_icon 'chevron-up'), {action: :create, controller: :votes, question_id: @question}, method: :post  %>
-
     <%= link_to (fa_icon 'chevron-down'), {action: :create, controller: :down_votes, question_id: @question}, method: :post  %>
-
-
-<%= @question.title %>
-
+    <%= @question.title %>
 </h1>
+
 <% if current_user && (current_user.id == @question.user_id || current_user.admin?) %>
   <%= link_to 'Edit', edit_question_path(@question) %>
   <%= link_to 'Delete', question_path(@question), data: { confirm: "You sure?", method: 'delete'}%>
@@ -27,14 +23,31 @@
   <%= render 'answers/form' %>
 <% end %>
 
+<% if @question.best_answer %>
+  <h3>Best Answer: </h3>
+  <h4><%= Answer.find(@question.best_answer).response %></h4>
+<% end %>
+
 <ul class='question-answers'>
-  <% @question.answers.each do |answer| %>
+  <% @question.answers.sort_by { |answer| answer.votes.count }.reverse.each do |answer| %>
     <li>
-      <%= answer.response %>
+      <span class="upvote"><%= link_to (fa_icon 'chevron-up'), {action: :create, controller: :votes, question_id: @question, answer_id: answer.id}, method: :post  %></span>
+      <span class="votes"><%= answer.votes.length - answer.down_votes.length %></span>
+      <span class="downvote"><%= link_to (fa_icon 'chevron-down'), {action: :create, controller: :down_votes, question_id: @question, answer_id: answer.id }, method: :post %></span>
+
+      <%= answer.response %> answered by <%= answer.user.email %>  <br><br>
+      <%= time_ago_in_words(answer.created_at) %>
+
       <% if current_user && (current_user.id == @question.user_id || current_user.admin?) %>
+
+        <% unless @question.best_answer %>
+          <%= link_to 'Choose as Best Answer', {action: :update, controller: :questions, question: @question.as_json, best_answer: answer.id}, method: :put %> |
+        <% end %>
+
         <%= link_to 'Edit', edit_question_answer_path(@question, answer) %> |
         <%= link_to "Delete", question_answer_path(@question, answer), data: { confirm: "You sure?", method: 'delete'} %>
       <% end %>
+
     </li>
   <% end %>
 </ul>

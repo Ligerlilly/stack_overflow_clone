@@ -15,14 +15,16 @@ ul {
 .listed-questions li {
   border-bottom: 2px solid #b2afaf;
   padding: 6px;
-  height: 60px;
+  height: 68px;
+  margin-left: 0;
 
     .index-tags {
       border-bottom: none;
-      background-color: #b2afaf;
-      padding: 4px;
+      background-color: #9ea3a9;
+      padding: 5px;
       margin-left: 6px;
-      height: 20px;
+      height: 24px;
+      color: #fff;
     }
 }
 
@@ -58,4 +60,9 @@ ul {
   padding-top: 5px;
   text-align: center;
   background-color: lightblue;
+}
+
+.question-answers li {
+  padding: 14px;
+  border-bottom: 1px solid grey;
 }

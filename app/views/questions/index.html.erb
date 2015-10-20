@@ -5,7 +5,7 @@
         <span class="answer-length"><%= question.answers.length %> answers </span>
         <span class="vote-length"><%= question.votes.length - question.down_votes.length %> votes </span>
         <span class="question-link"><%= link_to question.title, question_path(question) %></span>
-        asked <%= time_ago_in_words question.created_at %> ago<br>
+        asked by <%= question.user.email %><%= time_ago_in_words question.created_at %> ago<br>
 
         <ul class="list-inline">
           <% question.tags.each do |tag| %>
