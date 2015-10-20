@@ -4,7 +4,7 @@
       <li>
         <span class="answer-length"><%= question.answers.length %> answers </span>
         <span class="vote-length"><%= question.votes.length %> votes </span>
-        <%= link_to question.title, question_path(question) %>
+        <span class="question-link"><%= link_to question.title, question_path(question) %></span> 
         asked <%= time_ago_in_words question.created_at %> ago<br>
 
         <ul class="list-inline">

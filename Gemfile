@@ -9,8 +9,10 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'devise'
 gem 'bootstrap-sass'
+gem "font-awesome-rails"
 
 group :development do
+  gem 'letter_opener'
   gem 'byebug'
   gem 'web-console'
   gem 'spring'

@@ -1,9 +1,13 @@
 <h1>
   <span class="vote">
-  <%= link_to 'up', {action: :create, controller: :votes, question_id: @question}, method: :post%>
-    <span id='down' class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-  </span>
-  <%= @question.title %>
+
+    <%= link_to (fa_icon 'chevron-up'), {action: :create, controller: :votes, question_id: @question}, method: :post  %>
+
+    <%= link_to (fa_icon 'chevron-down'), {action: :destroy, controller: :votes, question_id: @question}, method: :delete  %>
+
+
+<%= @question.title %>
+
 </h1>
 <% if current_user && (current_user.id == @question.user_id || current_user.admin?) %>
   <%= link_to 'Edit', edit_question_path(@question) %>

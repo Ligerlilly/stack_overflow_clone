@@ -9,6 +9,7 @@ class AnswersController < ApplicationController
     @answer = Answer.new(answer_params)
     @question = Question.find(params[:answer][:question_id])
     if @answer.save
+      QuestionMailer.response_notification(User.find(@question.user_id), @question).deliver
       redirect_to question_path(@question)
     else
       render :new
