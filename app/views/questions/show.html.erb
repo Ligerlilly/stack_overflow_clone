@@ -3,7 +3,7 @@
 
     <%= link_to (fa_icon 'chevron-up'), {action: :create, controller: :votes, question_id: @question}, method: :post  %>
 
-    <%= link_to (fa_icon 'chevron-down'), {action: :destroy, controller: :votes, question_id: @question}, method: :delete  %>
+    <%= link_to (fa_icon 'chevron-down'), {action: :create, controller: :down_votes, question_id: @question}, method: :post  %>
 
 
 <%= @question.title %>

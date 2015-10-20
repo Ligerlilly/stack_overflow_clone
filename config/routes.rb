@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :questions do
     resources :answers
     resources :votes
+    resources :down_votes
   end
   resources :answers
   namespace :admin do

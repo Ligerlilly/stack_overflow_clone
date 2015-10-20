@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020164200) do
+ActiveRecord::Schema.define(version: 20151020183054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(version: 20151020164200) do
     t.integer  "question_id"
     t.integer  "user_id"
   end
+
+  create_table "down_votes", force: :cascade do |t|
+    t.integer  "downable_id"
+    t.string   "downable_type"
+    t.integer  "user_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "down_votes", ["user_id", "downable_id", "downable_type"], name: "index_down_votes_on_user_id_and_downable_id_and_downable_type", unique: true, using: :btree
 
   create_table "questions", force: :cascade do |t|
     t.string   "title"
@@ -72,6 +82,6 @@ ActiveRecord::Schema.define(version: 20151020164200) do
     t.datetime "updated_at",   null: false
   end
 
-  add_index "votes", ["user_id"], name: "index_votes_on_user_id", unique: true, using: :btree
+  add_index "votes", ["user_id", "votable_id", "votable_type"], name: "index_votes_on_user_id_and_votable_id_and_votable_type", unique: true, using: :btree
 
 end

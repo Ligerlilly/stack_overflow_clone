@@ -1,15 +1,15 @@
-class VotesController < ApplicationController
+class DownVotesController < ApplicationController
   before_action :load_votable
 
   def new
-    @vote = @votable.votes.new
+    @down_vote = @downable.down_votes.new
   end
 
   def create
-    @vote = @votable.votes.new
-    @vote.user_id = current_user.id
+    @down_vote = @downable.down_votes.new
+    @down_vote.user_id = current_user.id
     begin
-      if @vote.save
+      if @down_vote.save
         redirect_to questions_path
       end
     rescue ActiveRecord::RecordNotUnique
@@ -20,8 +20,8 @@ class VotesController < ApplicationController
 
   def destroy
     @question = Question.find(params[:question_id])
-    if @question.votes.last && @question.votes.last.user_id == current_user.id
-      @question.votes.last.destroy
+    if @question.down_votes.last && @question.down_votes.last.user_id == current_user.id
+      @question.down_votes.last.destroy
       redirect_to questions_path
     else
       redirect_to questions_path, alert: 'No votes to delete'
@@ -31,6 +31,6 @@ class VotesController < ApplicationController
   private
   def load_votable
     resource, id = request.path.split('/')[1,2]
-    @votable = resource.singularize.classify.constantize.find(id)
+    @downable = resource.singularize.classify.constantize.find(id)
   end
 end

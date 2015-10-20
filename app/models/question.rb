@@ -8,4 +8,5 @@ class Question < ActiveRecord::Base
   has_and_belongs_to_many :tags
   has_many :answers, dependent: :destroy
   has_many :votes, as: :votable, dependent: :destroy
+  has_many :down_votes, as: :downable, dependent: :destroy
 end
